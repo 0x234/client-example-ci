@@ -1,0 +1,36 @@
+language: go
+
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+
+services:
+- docker
+
+env:
+  global:
+    - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
+    - PROJECT_NAME_STG=tokencard
+    - CLUSTER_NAME_STG=tokencard
+    - PROJECT_NAME_PRD=tokencard 
+    - CLUSTER_NAME_PRD=tokencard
+    - CLOUDSDK_COMPUTE_ZONE=europe-west1-b
+    - DOCKER_IMAGE_NAME=eu.gcr.io/true-energy-185810/client
+    - KUBE_DEPLOYMENT_NAME=client-deployment
+    - KUBE_DEPLOYMENT_CONTAINER_NAME=client
+    - NODE_ENV=CI
+
+before_deploy:
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud --quiet version
+  - gcloud --quiet components update
+  - gcloud --quiet components beta update
+  - gcloud --quiet components update kubectl
+
+deploy:
+  - provider: script
+    script: ./deploy-service.sh
+    skip_cleanup: true
+    on:
+      branch: master
