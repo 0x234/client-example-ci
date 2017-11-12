@@ -32,8 +32,8 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	pb "src/routeguide"
-	"src/testdata"
+	pb "./src/routeguide"
+	"./src/testdata"
 )
 
 var (
