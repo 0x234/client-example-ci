@@ -142,6 +142,8 @@ func randomPoint(r *rand.Rand) *pb.Point {
 	return &pb.Point{Latitude: lat, Longitude: long}
 }
 
+// Just a comment
+
 func main() {
 	flag.Parse()
 	var opts []grpc.DialOption
