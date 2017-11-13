@@ -12,10 +12,10 @@ gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 
 echo "Setting gcloud config"
 
-gcloud --quiet config set project tokencard
+gcloud --quiet config set project true-energy-185810
 gcloud --quiet config set container/cluster tokencard
 gcloud --quiet config set compute/zone europe-west1-b
-gcloud --quiet container clusters get-credentials $CLUSTER_NAME_STG
+gcloud --quiet container clusters get-credentials tokencard
 
 echo "Push docker image to the gcloud registry"
 
@@ -23,7 +23,7 @@ gcloud docker push eu.gcr.io/true-energy-185810/client
 
 echo "Add latest tag to this build"
 
-yes | gcloud beta container images add-tag eu.gcr.io/true-energy-185810/client:$TRAVIS_COMMIT eu.gcr.io/true-energy-185810/client::latest
+yes | gcloud beta container images add-tag eu.gcr.io/true-energy-185810/client:$TRAVIS_COMMIT eu.gcr.io/true-energy-185810/client:latest
 
 echo "View cluster info"
 
