@@ -19,11 +19,7 @@ gcloud --quiet container clusters get-credentials tokencard
 
 echo "Push docker image to the gcloud registry"
 
-gcloud docker push eu.gcr.io/true-energy-185810/client
-
-echo "Add latest tag to this build"
-
-yes | gcloud beta container images add-tag eu.gcr.io/true-energy-185810/client:$TRAVIS_COMMIT eu.gcr.io/true-energy-185810/client:latest
+gcloud docker -- push eu.gcr.io/true-energy-185810/client:$TRAVIS_COMMIT
 
 echo "View cluster info"
 
