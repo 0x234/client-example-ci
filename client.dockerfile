@@ -7,6 +7,8 @@ RUN apk update && apk add lmdb-dev git gcc musl-dev
 RUN go get google.golang.org/grpc/credentials
 RUN go get golang.org/x/net/context
 RUN go get google.golang.org/grpc
+RUN go get github.com/jbunce/client-example-ci/routeguide
+RUN go get github.com/jbunce/client-example-ci/testdata
 
 ADD ./client /client/
 
